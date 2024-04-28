@@ -4,3 +4,11 @@ author: "Eric Anku"
 format: html
 ---
 
+```{r import-libraries}
+pacman::p_load(
+  tidyverse,
+  foreign,
+  janitor
+)
+```
+
