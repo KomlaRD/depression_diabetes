@@ -6,9 +6,21 @@ format: html
 
 ```{r import-libraries}
 pacman::p_load(
-  tidyverse,
-  foreign,
-  janitor
+  tidyverse, # Data wrangling
+  foreign, # Load SPSS dataset
+  janitor, # Clean data
+  rio, # Import and Export dataset
+  here # File management
 )
+```
+
+```{r import-dataset}
+df <- import(here("data", "depression_study.sav"))
+head(df)
+```
+```{r}
+df <- characterize(df)
+df <- factorize(df, coerce_character = TRUE)
+head(df)
 ```
 
