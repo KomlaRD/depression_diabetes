@@ -61,6 +61,17 @@ head(df)
 ```{r glimpse-data}
 glimpse(df)
 ```
+```{r}
+# Remove functionality and depression variables
+df <- df |>
+  select(
+    -c(
+    depression,
+    functionality
+  )
+  )
+```
+
 ```{r skim-data}
 skim(df)
 ```
