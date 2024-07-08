@@ -35,6 +35,19 @@ df <- df |>
   )
 ```
 
+```{r categorise-functionality-depression}
+df |>
+  mutate(
+    functionality_cat = 
+    case_when(
+      functionality <= 3 ~ "Dysfunctional",
+      functionality >=4 & functionality <= 7 ~ "Moderately dysfunctional",
+      functionality <= 8 & functionality <= 10 ~ "Highly functional"
+    )
+    
+  )
+```
+
 
 ```{r characterise-labels}
 df <- characterize(df)
