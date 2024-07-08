@@ -40,7 +40,7 @@ df <- df |>
   mutate(
     functionality_cat = 
     case_when(
-      functionality <= 7 ~ "Moderately dysfunctional",
+      functionality <= 7 ~ "Dysfunctional",
       functionality > 7  ~ "Highly functional"
     ),
     depression_cat = 
