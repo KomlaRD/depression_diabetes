@@ -42,12 +42,14 @@ df <- df |>
     case_when(
       functionality <= 7 ~ "Dysfunctional",
       functionality > 7  ~ "Highly functional"
-    ),
+    ) |>
+      ff_label("Functionality"),
     depression_cat = 
       case_when(
         depression <= 4 ~ "Normal",
         depression > 4 ~ "Depression"
-      )
+      ) |>
+      ff_label("Depression")
   )
 ```
 
@@ -75,7 +77,7 @@ df <- df |>
 ```{r skim-data}
 skim(df)
 ```
-```{r}
+```{r label-variables}
 df |>
   mutate(
     bmi = body_weight / (height)**2 |>
