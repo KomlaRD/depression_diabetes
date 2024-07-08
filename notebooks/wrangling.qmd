@@ -15,12 +15,17 @@ pacman::p_load(
 ```
 
 ```{r import-dataset}
-df <- import(here("data", "depression_study.sav"))
+df <- import(here("data", "data.sav"))
 head(df)
 ```
-```{r}
+
+```{r characterise-labels}
 df <- characterize(df)
 df <- factorize(df, coerce_character = TRUE)
 head(df)
+```
+
+```{r glimpse-data}
+glimpse(df)
 ```
 
