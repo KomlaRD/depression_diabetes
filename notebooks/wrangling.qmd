@@ -10,7 +10,9 @@ pacman::p_load(
   foreign, # Load SPSS dataset
   janitor, # Clean data
   rio, # Import and Export dataset
-  here # File management
+  here, # File management
+  skimr, # Skim data
+  finalfit # Labelling data
 )
 ```
 
@@ -30,6 +32,13 @@ glimpse(df)
 ```
 ```{r skim-data}
 skim(df)
+```
+```{r}
+df |>
+  mutate(
+    bmi = body_weight / (height)**2,
+    whr 
+  )
 ```
 
 
