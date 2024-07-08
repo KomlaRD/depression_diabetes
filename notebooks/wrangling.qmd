@@ -88,6 +88,11 @@ df |>
       ff_label("Systolic blood pressure (mmHg)"),
     dbp = bp_dbp2 + bp_dbp3 / 2 |>
       ff_label("Diastolic blood pressure (mmHg)"),
+    hbaic_cat = case_when(
+      hba1c_value < 7 ~ "Good control",
+      hba1c_value >= ~ "Poor control"
+    ) |>
+      ff_label("HBA1C categories"),
     ff_label(age, "Age (years)"),
     ff_label(sex, "Sex"),
     ff_label(education, "Educational status"),
