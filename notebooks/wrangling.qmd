@@ -172,15 +172,15 @@ depress <-
 export(df, here("data", "clean_data.RData"))
 
 # Demographics
-export(df, here("data", "demos.RData"))
+export(demographics, here("data", "demos.RData"))
 
 # Health related characteristics
-export(df, here("data", "health.RData"))
+export(health, here("data", "health.RData"))
 
 # Family functionality
-export(df, here("data", "family.RData"))
+export(fam_func, here("data", "family.RData"))
 
 # Depression
-export(df, here("data", "depression.RData"))
+export(depress, here("data", "depression.RData"))
 ```
 
