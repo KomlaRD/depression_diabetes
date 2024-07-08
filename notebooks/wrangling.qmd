@@ -167,4 +167,20 @@ depress <-
   )
 ```
 
+```{r export-clean-data}
+# Main dataset
+export(df, here("data", "clean_data.RData"))
+
+# Demographics
+export(df, here("data", "demos.RData"))
+
+# Health related characteristics
+export(df, here("data", "health.RData"))
+
+# Family functionality
+export(df, here("data", "family.RData"))
+
+# Depression
+export(df, here("data", "depression.RData"))
+```
 
