@@ -108,8 +108,6 @@ df |>
     ff_label(hip_circumference, "Hip circumference"),
     ff_label(duration_diabetes, "Duration of diabetes"),
     ff_label(treatment_diabetes, "Treatment of diabetes"),
-    
-    
   )
 ```
 ```{r create-subsets}
