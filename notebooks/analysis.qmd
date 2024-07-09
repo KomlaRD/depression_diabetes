@@ -4,3 +4,13 @@ author: "Eric Anku"
 format: html
 ---
 
+```{r import-libraries}
+pacman::p_load(
+  tidyverse, # Data manipulation and visualisation
+  gtsummary, # Summary and regression tables
+  finalfit, # Modelling
+  rio, # Import data
+  here # File management
+)
+```
+

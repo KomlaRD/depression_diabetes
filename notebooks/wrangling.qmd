@@ -110,6 +110,8 @@ df <- df |>
     ff_label(treatment_diabetes, "Treatment of diabetes"),
   )
 ```
+
+
 ```{r create-subsets}
 # Demographics
 demographics <- 
