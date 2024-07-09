@@ -14,3 +14,12 @@ pacman::p_load(
 )
 ```
 
+```{r import-dataset}
+# Import datasets
+df <- import(here("data", "clean_data.RData")) # Full dataset
+demographics <- import(here("data", "demos.RData")) # Demographics subset
+depress <- import(here("data", "depression.RData")) # Depression subset
+family_func <- import(here("data", "family.RData")) # Family functionality
+health <- import(here("data", "health.RData")) # Health characteristics 
+```
+
