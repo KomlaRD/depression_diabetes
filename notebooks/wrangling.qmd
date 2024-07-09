@@ -78,7 +78,7 @@ df <- df |>
 skim(df)
 ```
 ```{r label-variables}
-df |>
+df <- df |>
   mutate(
     bmi = body_weight / (height)**2 |>
       ff_label("Body mass index (kg/m^2"),
@@ -90,7 +90,7 @@ df |>
       ff_label("Diastolic blood pressure (mmHg)"),
     hbaic_cat = case_when(
       hba1c_value < 7 ~ "Good control",
-      hba1c_value >= ~ "Poor control"
+      hba1c_value >= 7 ~ "Poor control"
     ) |>
       ff_label("HBA1C categories"),
     ff_label(age, "Age (years)"),
