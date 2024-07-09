@@ -10,7 +10,8 @@ pacman::p_load(
   gtsummary, # Summary and regression tables
   finalfit, # Modelling
   rio, # Import data
-  here # File management
+  here, # File management
+  skimr # Skim dataset
 )
 ```
 
@@ -21,5 +22,9 @@ demographics <- import(here("data", "demos.RData")) # Demographics subset
 depress <- import(here("data", "depression.RData")) # Depression subset
 family_func <- import(here("data", "family.RData")) # Family functionality
 health <- import(here("data", "health.RData")) # Health characteristics 
+```
+
+```{r skim-data}
+skim(df)
 ```
 
