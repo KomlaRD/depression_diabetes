@@ -92,22 +92,7 @@ df <- df |>
       hba1c_value < 7 ~ "Good control",
       hba1c_value >= 7 ~ "Poor control"
     ) |>
-      ff_label("HBA1C categories"),
-    ff_label(age, "Age (years)"),
-    ff_label(sex, "Sex"),
-    ff_label(education, "Educational status"),
-    ff_label(marital_status, "Marital status"),
-    ff_label(religious_background, "Religious background"),
-    ff_label(employment_status, "Employment status"),
-    ff_label(place_of_permanent_residence, "Place of permanent residence"),
-    ff_label(monthly_income, "Monthly income (Ghana cedis)"),
-    ff_label(hba1c_value, "HBA1C (%)"),
-    ff_label(body_weight, "Weight (kg)"),
-    ff_label(height, "Height (cm)"),
-    ff_label(waist_circumference, "Waist circumference"),
-    ff_label(hip_circumference, "Hip circumference"),
-    ff_label(duration_diabetes, "Duration of diabetes"),
-    ff_label(treatment_diabetes, "Treatment of diabetes"),
+      ff_label("HBA1C categories")
   )
 ```
 
