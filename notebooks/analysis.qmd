@@ -83,4 +83,65 @@ fam_func |>
   tbl_summary()
 ```
 
+```{r demo-hbaic}
+# Demographics by HBA1C outcome
+demographics |>
+  tbl_summary(by = hbaic_cat) |>
+  add_p() |>
+  bold_p()
+  
+```
+
+```{r demo-func}
+# Demographics by family functionality
+demographics |>
+  tbl_summary(by = functionality_cat) |>
+  add_p() |>
+  bold_p()
+```
+
+```{r demo-depression}
+# Demographics by depression
+demographics |>
+  tbl_summary(by = depression_cat) |>
+  add_p() |>
+  bold_p()
+```
+
+
+
+```{r health-hbaic}
+# Health characteristics by HBA1C outcome
+health |>
+  tbl_summary(by = hbaic_cat) |>
+  add_p() |>
+  bold_p()
+```
+
+
+```{r health-func}
+# Health characteristics by family functionality
+demographics |>
+  tbl_summary(by = functionality_cat) |>
+  add_p() |>
+  bold_p()
+```
+
+
+```{r health-depression}
+# Health characteristics by depression
+demographics |>
+  tbl_summary(by = depression_cat) |>
+  add_p() |>
+  bold_p()
+```
+
+
+
+
+
+
+
+
+
 
