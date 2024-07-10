@@ -84,9 +84,9 @@ df <- df |>
       ff_label("Body mass index (kg/m^2"),
     whr = waist_circumference / hip_circumference |>
       ff_label("Waist-to-hip ratio"),
-    sbp = bp_sbp2 + bp_sbp3 / 2 |>
+    sbp = (bp_sbp2 + bp_sbp3) / 2 |>
       ff_label("Systolic blood pressure (mmHg)"),
-    dbp = bp_dbp2 + bp_dbp3 / 2 |>
+    dbp = (bp_dbp2 + bp_dbp3) / 2 |>
       ff_label("Diastolic blood pressure (mmHg)"),
     hbaic_cat = case_when(
       hba1c_value < 7 ~ "Good control",
