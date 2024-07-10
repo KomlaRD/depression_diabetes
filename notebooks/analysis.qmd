@@ -28,3 +28,23 @@ health <- import(here("data", "health.RData")) # Health characteristics
 skim(df)
 ```
 
+```{r shapiro-wilk-test}
+# Create function
+shapiro_test <- function(x) {
+  shapiro_resut <- shapiro.test(x)
+  return(shapiro_resut$p.value)
+}
+
+# Extract numeric variables
+numeric_vars <- df |>
+  select_if(is.numeric)
+
+# Apply function to numeric variables
+shapiro_p_values <- numeric_vars |>
+  summarise(across(everything(), ~ shapiro_test(.))) |>
+  pivot_longer(everything(), names_to = "Variable", values_to = "P values")
+
+# Print shapiro_result
+print(shapiro_p_values)
+```
+
