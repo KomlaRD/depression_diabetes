@@ -15,6 +15,9 @@ pacman::p_load(
 )
 ```
 
+# Introduction
+
+
 ```{r import-dataset}
 # Import datasets
 df <- import(here("data", "clean_data.RData"), trust = TRUE) # Full dataset
@@ -27,6 +30,8 @@ health <- import(here("data", "health.RData"), trust = TRUE) # Health characteri
 ```{r skim-data}
 skim(df)
 ```
+
+## Normality test
 
 ```{r shapiro-wilk-test}
 # Create function
@@ -47,4 +52,35 @@ shapiro_p_values <- numeric_vars |>
 # Print shapiro_result
 print(shapiro_p_values)
 ```
+
+***
+
+# Descriptive and Inferential statistics
+
+```{r descriptives}
+# Demographics
+demographics |>
+  tbl_summary()
+```
+```{r health}
+# Health data
+health |>
+  select(-c(sex)) |>
+  tbl_summary()
+```
+
+```{r}
+# Depression data
+depress |>
+  select(-c(sex)) |>
+  tbl_summary()
+```
+
+```{r describe-family-functionality}
+# Family functionality
+fam_func |>
+  select(-c(sex)) |>
+  tbl_summary()
+```
+
 
