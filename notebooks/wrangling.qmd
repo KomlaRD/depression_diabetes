@@ -152,6 +152,9 @@ demographics <-
     employment_status,
     place_of_permanent_residence,
     monthly_income,
+    functionality_cat,
+    depression_cat,
+    hbaic_cat
   )
 
 # Health related characteristics
@@ -171,7 +174,10 @@ health <-
     bp_cat,
     whr_cat,
     duration_diabetes,
-    treatment_diabetes
+    treatment_diabetes,
+    functionality_cat,
+    depression_cat,
+    hbaic_cat
   )
 
 # Family functionality
