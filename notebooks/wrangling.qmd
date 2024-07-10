@@ -124,6 +124,17 @@ df <- df |>
   )
 ```
 
+```{r bp-cat}
+df <- df |>
+  mutate(
+    bp_cat = 
+      case_when(
+        sbp <= 140 & dbp <= 80 ~ "Good BP control",
+        .default = "Poor BP control"
+      )
+  )
+```
+
 
 ```{r create-subsets}
 # Demographics
