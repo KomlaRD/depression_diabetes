@@ -96,11 +96,13 @@ df <- df |>
   )
 ```
 
-```{ waist-hip-ratio}
+
+
+```{r waist-hip-ratio}
 male_cut_off <- 0.9
 female_cut_off <- 0.85
 
-df |>
+df <- df |>
 mutate(
   whr_cat = case_when(
   sex == "Male" & whr <= male_cut_off ~ "Normal",
@@ -108,6 +110,18 @@ mutate(
   .default = "High"
 )
 )
+```
+
+```{r bmi-category}
+df <- df |>
+  mutate(
+    bmi_cat = case_when(
+      bmi < 18.5 ~ "Underweighht",
+      bmi >= 18.5 & bmi <= 24.9 ~ "Normal",
+      bmi >= 25 & bmi <= 29.9 ~ "Overweight",
+      .default = "Obesity"
+    )
+  )
 ```
 
 
