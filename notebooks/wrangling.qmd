@@ -77,7 +77,7 @@ df <- df |>
 ```{r skim-data}
 skim(df)
 ```
-```{r label-variables}
+```{r mutate-variables}
 df <- df |>
   mutate(
     bmi = body_weight / (height)**2 |>
@@ -94,6 +94,20 @@ df <- df |>
     ) |>
       ff_label("HBA1C categories")
   )
+```
+
+```{ waist-hip-ratio}
+male_cut_off <- 0.9
+female_cut_off <- 0.85
+
+df |>
+mutate(
+  whr_cat = case_when(
+  sex == "Male" & whr <= male_cut_off ~ "Normal",
+  sex == "Female" & whr <= female_cut_off ~ "Normal",
+  .default = "High"
+)
+)
 ```
 
 
