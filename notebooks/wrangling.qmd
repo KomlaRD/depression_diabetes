@@ -108,7 +108,8 @@ mutate(
   sex == "Male" & whr <= male_cut_off ~ "Normal",
   sex == "Female" & whr <= female_cut_off ~ "Normal",
   .default = "High"
-)
+) |>
+  ff_label("WHR categories")
 )
 ```
 
@@ -120,7 +121,8 @@ df <- df |>
       bmi >= 18.5 & bmi <= 24.9 ~ "Normal",
       bmi >= 25 & bmi <= 29.9 ~ "Overweight",
       .default = "Obesity"
-    )
+    ) |> 
+      ff_label("BMI categories")
   )
 ```
 
@@ -131,7 +133,8 @@ df <- df |>
       case_when(
         sbp <= 140 & dbp <= 80 ~ "Good BP control",
         .default = "Poor BP control"
-      )
+      ) |>
+      ff_label("Blood pressure categories")
   )
 ```
 
