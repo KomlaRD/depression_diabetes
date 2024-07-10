@@ -158,14 +158,18 @@ demographics <-
 health <- 
   df |>
   select(
+    sex,
     hba1c_value,
     body_weight,
     height,
     bmi,
+    bmi_cat,
     waist_circumference,
     hip_circumference,
     sbp,
     dbp,
+    bp_cat,
+    whr_cat,
     duration_diabetes,
     treatment_diabetes
   )
@@ -174,6 +178,7 @@ health <-
 fam_func <- 
   df |>
   select(
+    sex,
     ff1,
     ff2,
     ff3,
@@ -186,6 +191,7 @@ fam_func <-
 depress <- 
   df |>
   select(
+    sex,
     phq1,
     phq2,
     phq3,
