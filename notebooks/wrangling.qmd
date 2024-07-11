@@ -113,6 +113,8 @@ mutate(
 )
 ```
 
+
+
 ```{r bmi-category}
 df <- df |>
   mutate(
@@ -214,6 +216,7 @@ depress <-
 ```{r export-clean-data}
 # Main dataset
 export(df, here("data", "clean_data.RData"))
+export(df, here("data", "clean_data.csv"))
 
 # Demographics
 export(demographics, here("data", "demos.RData"))
