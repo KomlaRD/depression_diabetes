@@ -141,6 +141,13 @@ df <- df |>
 ```
 
 
+```{r mutate-age}
+# Replace the patient's age from 80 to 81
+df <- df |>
+  mutate(age = ifelse(id == "DM/083", 80, age))
+```
+
+
 ```{r create-subsets}
 # Demographics
 demographics <- 
