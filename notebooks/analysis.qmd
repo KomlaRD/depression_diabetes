@@ -11,7 +11,10 @@ pacman::p_load(
   finalfit, # Modelling
   rio, # Import data
   here, # File management
-  skimr # Skim dataset
+  skimr, # Skim dataset
+  broom, # Tidy output
+  car, # Variance inflation factor
+  rstatix # Pipe friendly statistical test
 )
 ```
 
@@ -133,14 +136,62 @@ demographics |>
 demographics |>
   tbl_summary(by = depression_cat) |>
   add_p() |>
-  bold_p()
+  bold_p() 
 ```
 
 
+# Logistic regression
+
+## Multicolinearity
+
+```{r}
+# Convert categorical outcome variable to numeric (binary encoding)
+df <- df |>
+  mutate(
+    hbaic_cat_binary = 
+      ifelse(hbaic_cat == "Good control", 0, 1),
+    fam_func_binary = 
+      ifelse(functionality_cat == "Highly functional", 0, 1),
+    depression_binary =
+      ifelse(
+        depression_cat == "Normal", 0, 1
+      )
+  )
+```
 
 
+```{r multi-co}
+dependent_hb <- "hbaic_cat_binary"
+dependent_ff <- "fam_func_binary"
+dependent_dep <- "depression_cat"
+
+explanatory <- c(
+"sex",                        
+"age",                       
+"education",                   
+"marital_status",              
+"religious_background",        
+"employment_status",           
+"place_of_permanent_residence",
+"monthly_income",              
+"body_weight",                 
+"height",                      
+"waist_circumference",         
+"hip_circumference",   
+"sbp",
+"dbp",
+"duration_diabetes",
+"treatment_diabetes" 
+)
+```
 
 
+```{r vif-hbaic}
+df |>
+  glmmulti(
+    dependent_hb, explanatory
+  ) |> car::vif()
+```
 
 
 
