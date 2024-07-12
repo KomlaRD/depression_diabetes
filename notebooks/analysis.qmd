@@ -279,5 +279,48 @@ duration_model <- glm(hbaic_cat_binary ~ duration_diabetes, data = df, family = 
 treatment_model <- glm(hbaic_cat_binary ~ treatment_diabetes, data = df, family = binomial)
 ```
 
+```{r univariate-ff}
+# Sex model
+sex_model1 <- glm(fam_func_binary ~ sex, data = df, family = binomial)
+
+# Age model
+age_model1 <- glm(fam_func_binary  ~ age, data = df, family = binomial)
+
+# Educational status
+education_model1 <- glm(fam_func_binary  ~ education, data = df, family = binomial)
+
+# Marital status
+marital_model1 <- glm(fam_func_binary  ~ marital_status, data = df, family = binomial)
+
+# Religious background
+religion_model1 <- glm(fam_func_binary  ~ religious_background, data = df, family = binomial)
+
+# Employment status
+employment_model1 <- glm(fam_func_binary  ~ employment_status, data = df, family = binomial)
+
+# Place of permanent residence
+permanent_model1 <- glm(fam_func_binary  ~ place_of_permanent_residence, data = df, family = binomial)
+
+# Monthly income
+income_model1 <- glm(fam_func_binary  ~ monthly_income, data = df, family = binomial)
+
+# Waist circumference
+waist_model1 <- glm(fam_func_binary  ~ waist_circumference, data = df, family = binomial)
+
+# Hip circumference
+hip_model1 <- glm(fam_func_binary  ~ hip_circumference , data = df, family = binomial)
+
+# Systolic blood pressure
+sbp_model1 <- glm(fam_func_binary  ~ sbp, data = df, family = binomial)
+
+# Diastolic blood pressure
+dbp_model1 <- glm(fam_func_binary  ~ dbp, data = df, family = binomial)
+
+# Duration of diabetes
+duration_model1 <- glm(fam_func_binary  ~ duration_diabetes, data = df, family = binomial)
+
+# Treatment of diabetes
+treatment_model1 <- glm(fam_func_binary  ~ treatment_diabetes, data = df, family = binomial)
+```
 
 
