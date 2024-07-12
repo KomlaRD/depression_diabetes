@@ -365,7 +365,112 @@ dbp_model2 <- glm(depression_binary  ~ dbp, data = df, family = binomial)
 duration_model2 <- glm(depression_binary  ~ duration_diabetes, data = df, family = binomial)
 
 # Treatment of diabetes
-treatment_model2 <- glm(depression_binary  ~ treatment_diabetes, data = df, family = binomial)
+treatment_model2 <- glm(depression_binary ~ treatment_diabetes, data = df, family = binomial)
 ```
 
+```{r univariate-table-hbaic}
+# Sex model
+th1 <- sex_model |>
+  tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Age model
+th2 <- age_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+  
+
+# Educational status
+th3 <- education_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Marital status
+th4 <- marital_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Religious background
+th5 <- religion_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Employment status
+th6 <- employment_model|> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Place of permanent residence
+th7 <- permanent_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Monthly income
+th8 <- income_model|> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Waist circumference
+th9 <- waist_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Hip circumference
+th10 <- hip_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Systolic blood pressure
+th11 <- sbp_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Diastolic blood pressure
+th12 <- dbp_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Duration of diabetes
+th13 <- duration_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Treatment of diabetes
+th14 <- treatment_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+uni_th <- tbl_stack(list(th1, th2, th3, th4, th5, th6, th7, th8, th9, th9, th10, th11, th12, th13, th14))
+
+uni_th
+```
 
