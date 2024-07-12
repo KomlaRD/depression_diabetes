@@ -580,4 +580,109 @@ uni_tf <- tbl_stack(list(tf1, tf2, tf3, tf4, tf5, tf6, tf7, tf8, tf9, tf10, tf11
 uni_tf
 ```
 
+```{r univariate-depression}
+# Sex model
+td1 <- sex_model2 |>
+  tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Age model
+td2 <- age_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+  
+
+# Educational status
+td3 <- education_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Marital status
+td4 <- marital_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Religious background
+td5 <- religion_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Employment status
+td6 <- employment_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Place of permanent residence
+td7 <- permanent_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Monthly income
+td8 <- income_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Waist circumference
+td9 <- waist_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Hip circumference
+td10 <- hip_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Systolic blood pressure
+td11 <- sbp_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Diastolic blood pressure
+td12 <- dbp_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Duration of diabetes
+td13 <- duration_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Treatment of diabetes
+td14 <- treatment_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+uni_td <- tbl_stack(list(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11, td12, td13, td14))
+
+uni_td
+```
 
