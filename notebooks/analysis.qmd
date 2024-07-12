@@ -187,9 +187,17 @@ explanatory <- c(
 
 
 ```{r vif-hbaic}
+# Variance inflation factor for HBA1C outcome
 df |>
   glmmulti(
     dependent_hb, explanatory
+  ) |> car::vif()
+```
+```{r vif-ff}
+# Variance inflation factor for famiy functionality outcome
+df |>
+  glmmulti(
+    dependent_ff, explanatory
   ) |> car::vif()
 ```
 
