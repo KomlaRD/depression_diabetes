@@ -324,3 +324,48 @@ treatment_model1 <- glm(fam_func_binary  ~ treatment_diabetes, data = df, family
 ```
 
 
+```{r univariate-depression}
+# Sex model
+sex_model2 <- glm(depression_binary ~ sex, data = df, family = binomial)
+
+# Age model
+age_model2 <- glm(depression_binary  ~ age, data = df, family = binomial)
+
+# Educational status
+education_model2 <- glm(depression_binary  ~ education, data = df, family = binomial)
+
+# Marital status
+marital_model2 <- glm(depression_binary  ~ marital_status, data = df, family = binomial)
+
+# Religious background
+religion_model2 <- glm(depression_binary  ~ religious_background, data = df, family = binomial)
+
+# Employment status
+employment_model2 <- glm(depression_binary  ~ employment_status, data = df, family = binomial)
+
+# Place of permanent residence
+permanent_model2 <- glm(depression_binary  ~ place_of_permanent_residence, data = df, family = binomial)
+
+# Monthly income
+income_model2 <- glm(depression_binary  ~ monthly_income, data = df, family = binomial)
+
+# Waist circumference
+waist_model2 <- glm(depression_binary  ~ waist_circumference, data = df, family = binomial)
+
+# Hip circumference
+hip_model2 <- glm(depression_binary  ~ hip_circumference , data = df, family = binomial)
+
+# Systolic blood pressure
+sbp_model2 <- glm(depression_binary  ~ sbp, data = df, family = binomial)
+
+# Diastolic blood pressure
+dbp_model2 <- glm(depression_binary  ~ dbp, data = df, family = binomial)
+
+# Duration of diabetes
+duration_model2 <- glm(depression_binary  ~ duration_diabetes, data = df, family = binomial)
+
+# Treatment of diabetes
+treatment_model2 <- glm(depression_binary  ~ treatment_diabetes, data = df, family = binomial)
+```
+
+
