@@ -64,27 +64,44 @@ print(shapiro_p_values)
 ```{r descriptives}
 # Demographics
 demographics |>
-  tbl_summary()
+  tbl_summary(
+    missing_text = "Missing",
+    sort = list(c(marital_status, religious_background,
+                  employment_status) ~ "frequency")
+)|>
+  bold_labels() |>
+  add_ci()
 ```
 ```{r health}
 # Health data
 health |>
   select(-c(sex)) |>
-  tbl_summary()
+  tbl_summary(
+    missing_text = "Missing",
+    sort = list(c(treatment_diabetes) ~ "frequency"
+  ) )|>
+    bold_labels() |>
+    add_ci()
+  
 ```
 
 ```{r}
 # Depression data
 depress |>
   select(-c(sex)) |>
-  tbl_summary()
+  tbl_summary(
+  ) |>
+  add_ci() |>
+  bold_labels()
 ```
 
 ```{r describe-family-functionality}
 # Family functionality
 fam_func |>
   select(-c(sex)) |>
-  tbl_summary()
+  tbl_summary() |>
+  bold_labels() |>
+  add_ci()
 ```
 
 ```{r demo-hbaic}
@@ -92,7 +109,8 @@ fam_func |>
 demographics |>
   tbl_summary(by = hbaic_cat) |>
   add_p() |>
-  bold_p()
+  bold_p() |>
+  bold_labels()
   
 ```
 
@@ -101,7 +119,8 @@ demographics |>
 demographics |>
   tbl_summary(by = functionality_cat) |>
   add_p() |>
-  bold_p()
+  bold_p() |>
+  bold_labels()
 ```
 
 ```{r demo-depression}
@@ -109,7 +128,8 @@ demographics |>
 demographics |>
   tbl_summary(by = depression_cat) |>
   add_p() |>
-  bold_p()
+  bold_p() |>
+  bold_labels()
 ```
 
 
@@ -119,7 +139,8 @@ demographics |>
 health |>
   tbl_summary(by = hbaic_cat) |>
   add_p() |>
-  bold_p()
+  bold_p() |>
+  bold_labels()
 ```
 
 
@@ -128,7 +149,7 @@ health |>
 demographics |>
   tbl_summary(by = functionality_cat) |>
   add_p() |>
-  bold_p()
+  bold_p() |> bold_labels()
 ```
 
 
@@ -137,7 +158,7 @@ demographics |>
 demographics |>
   tbl_summary(by = depression_cat) |>
   add_p() |>
-  bold_p() 
+  bold_p() |> bold_labels()
 ```
 
 
