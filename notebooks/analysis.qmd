@@ -14,7 +14,8 @@ pacman::p_load(
   skimr, # Skim dataset
   broom, # Tidy output
   car, # Variance inflation factor
-  rstatix # Pipe friendly statistical test
+  rstatix, # Pipe friendly statistical test
+  GGally # Correlation matrix
 )
 ```
 
@@ -207,6 +208,11 @@ df |>
   glmmulti(
     dependent_dep, explanatory
   ) |> car::vif()
+```
+```{r corr-numeric}
+df |>
+  select_if(is.numeric) |>
+  ggcorr(label = TRUE)
 ```
 
 
