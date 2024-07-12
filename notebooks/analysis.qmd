@@ -163,7 +163,7 @@ df <- df |>
 ```{r multi-co}
 dependent_hb <- "hbaic_cat_binary"
 dependent_ff <- "fam_func_binary"
-dependent_dep <- "depression_cat"
+dependent_dep <- "depression_binary"
 
 explanatory <- c(
 "sex",                        
@@ -194,13 +194,20 @@ df |>
   ) |> car::vif()
 ```
 ```{r vif-ff}
-# Variance inflation factor for famiy functionality outcome
+# Variance inflation factor for family functionality outcome
 df |>
   glmmulti(
     dependent_ff, explanatory
   ) |> car::vif()
 ```
 
+```{r vif-dep}
+# Variance inflation factor for depression outcome
+df |>
+  glmmulti(
+    dependent_dep, explanatory
+  ) |> car::vif()
+```
 
 
 
