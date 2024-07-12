@@ -474,7 +474,7 @@ uni_th <- tbl_stack(list(th1, th2, th3, th4, th5, th6, th7, th8, th9, th10, th11
 uni_th
 ```
 
-```{r univariate-ff}
+```{r univariatetable-ff}
 # Sex model
 tf1 <- sex_model1 |>
   tbl_regression(
@@ -580,7 +580,7 @@ uni_tf <- tbl_stack(list(tf1, tf2, tf3, tf4, tf5, tf6, tf7, tf8, tf9, tf10, tf11
 uni_tf
 ```
 
-```{r univariate-depression}
+```{r univariate-table-depression}
 # Sex model
 td1 <- sex_model2 |>
   tbl_regression(
@@ -685,6 +685,33 @@ uni_td <- tbl_stack(list(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11
 
 uni_td
 ```
+
+```{r full-model-hbaic}
+full_model <- glm(hbaic_cat_binary ~ sex + age + education +
+                     marital_status +
+                     religious_background +
+                     employment_status +
+                     place_of_permanent_residence +
+                     monthly_income +
+                     sbp +
+                     dbp +
+                     waist_circumference +
+                     hip_circumference +
+                     duration_diabetes +
+                     treatment_diabetes,
+                   data = df,
+                   family = binomial
+                     )
+
+full_th <- full_model |>
+  tbl_regression(
+    exponentiate = TRUE
+  ) |> bold_p() |>
+  bold_labels()
+
+full_th
+```
+
 
 ```{r multiple-logistic-func}
 full_model1 <- glm(fam_func_binary ~ sex + age + education +
