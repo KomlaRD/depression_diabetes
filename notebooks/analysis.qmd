@@ -61,6 +61,34 @@ print(shapiro_p_values)
 
 # Descriptive and Inferential statistics
 
+```{r categorical_variables}
+# Categorical variables
+categorical_vars <- df |> 
+  select_if(is.factor)
+
+categorical_variables <- categorical_vars |>
+  select(-c(id))
+
+colnames(categorical_variables)[]
+```
+```{r}
+ cat <- C() "sex"                          "education"                   
+  "marital_status"               "religious_background"        
+ "employment_status"            "place_of_permanent_residence"
+ "monthly_income"               "duration_diabetes_cat"       
+ "treatment_diabetes"           "ff1"                         
+"ff2"                          "ff3"                         
+"ff4"                          "ff5"                         
+"phq1"                         "phq2"                        
+"phq3"                         "phq4"                        
+"phq5"                         "phq6"                        
+"phq7"                         "phq8"                        
+"phq9"                         "functionality_cat"           
+"depression_cat"   
+```
+
+## Demographics
+
 ```{r descriptives}
 # Demographics
 demographics |>
@@ -70,8 +98,13 @@ demographics |>
                   employment_status) ~ "frequency")
 )|>
   bold_labels() |>
-  add_ci()
+  add_ci(include=c(
+    "sex","education","marital_status","religious_background","employment_status", "place_of_permanent_residence", "monthly_income", "hbaic_cat", "functionality_cat", "depression_cat"
+  ))
 ```
+
+## Health characteristics
+
 ```{r health}
 # Health data
 health |>
@@ -81,9 +114,12 @@ health |>
     sort = list(c(treatment_diabetes) ~ "frequency"
   ) )|>
     bold_labels() |>
-    add_ci()
+    add_ci("bmi_cat", "bp_cat", "whr_cat", "treatment_diabetes")
   
 ```
+
+
+## Depression 
 
 ```{r}
 # Depression data
@@ -95,6 +131,10 @@ depress |>
   bold_labels()
 ```
 
+
+
+## Family functionality
+
 ```{r describe-family-functionality}
 # Family functionality
 fam_func |>
@@ -103,6 +143,11 @@ fam_func |>
   bold_labels() |>
   add_ci()
 ```
+
+
+
+## Demographics stratified by HBA1C
+
 
 ```{r demo-hbaic}
 # Demographics by HBA1C outcome
@@ -114,6 +159,9 @@ demographics |>
   
 ```
 
+
+## Demographics stratified by family functionality
+
 ```{r demo-func}
 # Demographics by family functionality
 demographics |>
@@ -122,6 +170,9 @@ demographics |>
   bold_p() |>
   bold_labels()
 ```
+
+
+## Demographics stratified by depression
 
 ```{r demo-depression}
 # Demographics by depression
@@ -132,7 +183,7 @@ demographics |>
   bold_labels()
 ```
 
-
+## Health characteristics stratified by HBA1C outcome
 
 ```{r health-hbaic}
 # Health characteristics by HBA1C outcome
@@ -143,15 +194,18 @@ health |>
   bold_labels()
 ```
 
+## Health characteristics stratified by family functionality
+
 
 ```{r health-func}
 # Health characteristics by family functionality
-demographics |>
+health |>
   tbl_summary(by = functionality_cat) |>
   add_p() |>
   bold_p() |> bold_labels()
 ```
 
+## Health characteristics stratified by depression outcome
 
 ```{r health-depression}
 # Health characteristics by depression
@@ -207,6 +261,7 @@ explanatory <- c(
 )
 ```
 
+## Multicollinearity: HBA1C
 
 ```{r vif-hbaic}
 # Variance inflation factor for HBA1C outcome
@@ -215,6 +270,11 @@ df |>
     dependent_hb, explanatory
   ) |> car::vif()
 ```
+
+
+
+## Multicollinearity: Family functionality
+
 ```{r vif-ff}
 # Variance inflation factor for family functionality outcome
 df |>
@@ -223,6 +283,12 @@ df |>
   ) |> car::vif()
 ```
 
+
+
+
+## Multicollinearity: Depression
+
+
 ```{r vif-dep}
 # Variance inflation factor for depression outcome
 df |>
@@ -230,11 +296,20 @@ df |>
     dependent_dep, explanatory
   ) |> car::vif()
 ```
+
+
+## Correlation between numeric variables
+
 ```{r corr-numeric}
 df |>
   select_if(is.numeric) |>
   ggcorr(label = TRUE)
 ```
+
+
+## Univariate models: HBA1C
+
+
 ```{r hbaic-univariate}
 # Sex model
 sex_model <- glm(hbaic_cat_binary ~ sex, data = df, family = binomial)
@@ -277,95 +352,6 @@ duration_model <- glm(hbaic_cat_binary ~ duration_diabetes, data = df, family = 
 
 # Treatment of diabetes
 treatment_model <- glm(hbaic_cat_binary ~ treatment_diabetes, data = df, family = binomial)
-```
-
-```{r univariate-ff}
-# Sex model
-sex_model1 <- glm(fam_func_binary ~ sex, data = df, family = binomial)
-
-# Age model
-age_model1 <- glm(fam_func_binary  ~ age, data = df, family = binomial)
-
-# Educational status
-education_model1 <- glm(fam_func_binary  ~ education, data = df, family = binomial)
-
-# Marital status
-marital_model1 <- glm(fam_func_binary  ~ marital_status, data = df, family = binomial)
-
-# Religious background
-religion_model1 <- glm(fam_func_binary  ~ religious_background, data = df, family = binomial)
-
-# Employment status
-employment_model1 <- glm(fam_func_binary  ~ employment_status, data = df, family = binomial)
-
-# Place of permanent residence
-permanent_model1 <- glm(fam_func_binary  ~ place_of_permanent_residence, data = df, family = binomial)
-
-# Monthly income
-income_model1 <- glm(fam_func_binary  ~ monthly_income, data = df, family = binomial)
-
-# Waist circumference
-waist_model1 <- glm(fam_func_binary  ~ waist_circumference, data = df, family = binomial)
-
-# Hip circumference
-hip_model1 <- glm(fam_func_binary  ~ hip_circumference , data = df, family = binomial)
-
-# Systolic blood pressure
-sbp_model1 <- glm(fam_func_binary  ~ sbp, data = df, family = binomial)
-
-# Diastolic blood pressure
-dbp_model1 <- glm(fam_func_binary  ~ dbp, data = df, family = binomial)
-
-# Duration of diabetes
-duration_model1 <- glm(fam_func_binary  ~ duration_diabetes, data = df, family = binomial)
-
-# Treatment of diabetes
-treatment_model1 <- glm(fam_func_binary  ~ treatment_diabetes, data = df, family = binomial)
-```
-
-
-```{r univariate-depression}
-# Sex model
-sex_model2 <- glm(depression_binary ~ sex, data = df, family = binomial)
-
-# Age model
-age_model2 <- glm(depression_binary  ~ age, data = df, family = binomial)
-
-# Educational status
-education_model2 <- glm(depression_binary  ~ education, data = df, family = binomial)
-
-# Marital status
-marital_model2 <- glm(depression_binary  ~ marital_status, data = df, family = binomial)
-
-# Religious background
-religion_model2 <- glm(depression_binary  ~ religious_background, data = df, family = binomial)
-
-# Employment status
-employment_model2 <- glm(depression_binary  ~ employment_status, data = df, family = binomial)
-
-# Place of permanent residence
-permanent_model2 <- glm(depression_binary  ~ place_of_permanent_residence, data = df, family = binomial)
-
-# Monthly income
-income_model2 <- glm(depression_binary  ~ monthly_income, data = df, family = binomial)
-
-# Waist circumference
-waist_model2 <- glm(depression_binary  ~ waist_circumference, data = df, family = binomial)
-
-# Hip circumference
-hip_model2 <- glm(depression_binary  ~ hip_circumference , data = df, family = binomial)
-
-# Systolic blood pressure
-sbp_model2 <- glm(depression_binary  ~ sbp, data = df, family = binomial)
-
-# Diastolic blood pressure
-dbp_model2 <- glm(depression_binary  ~ dbp, data = df, family = binomial)
-
-# Duration of diabetes
-duration_model2 <- glm(depression_binary  ~ duration_diabetes, data = df, family = binomial)
-
-# Treatment of diabetes
-treatment_model2 <- glm(depression_binary ~ treatment_diabetes, data = df, family = binomial)
 ```
 
 ```{r univariate-table-hbaic}
@@ -474,6 +460,101 @@ uni_th <- tbl_stack(list(th1, th2, th3, th4, th5, th6, th7, th8, th9, th10, th11
 uni_th
 ```
 
+### Multiple logisitic: HBA1C
+
+```{r full-model-hbaic}
+full_model <- glm(hbaic_cat_binary ~ sex + age + education +
+                     marital_status +
+                     religious_background +
+                     employment_status +
+                     place_of_permanent_residence +
+                     monthly_income +
+                     sbp +
+                     dbp +
+                     waist_circumference +
+                     hip_circumference +
+                     duration_diabetes +
+                     treatment_diabetes,
+                   data = df,
+                   family = binomial
+                     )
+
+full_th <- full_model |>
+  tbl_regression(
+    exponentiate = TRUE
+  ) |> bold_p() |>
+  bold_labels()
+
+full_th
+```
+
+
+
+```{r final-model-step}
+final_model_th <- full_model|>
+  step(direction = "forward", trace = FALSE)
+
+final_model_th |>
+  tbl_regression(
+    exponentiate = TRUE
+  ) |> bold_p() |>
+  bold_labels()
+
+final_model_th
+```
+
+
+
+
+## Univariate models: family functionality
+
+
+```{r univariate-ff}
+# Sex model
+sex_model1 <- glm(fam_func_binary ~ sex, data = df, family = binomial)
+
+# Age model
+age_model1 <- glm(fam_func_binary  ~ age, data = df, family = binomial)
+
+# Educational status
+education_model1 <- glm(fam_func_binary  ~ education, data = df, family = binomial)
+
+# Marital status
+marital_model1 <- glm(fam_func_binary  ~ marital_status, data = df, family = binomial)
+
+# Religious background
+religion_model1 <- glm(fam_func_binary  ~ religious_background, data = df, family = binomial)
+
+# Employment status
+employment_model1 <- glm(fam_func_binary  ~ employment_status, data = df, family = binomial)
+
+# Place of permanent residence
+permanent_model1 <- glm(fam_func_binary  ~ place_of_permanent_residence, data = df, family = binomial)
+
+# Monthly income
+income_model1 <- glm(fam_func_binary  ~ monthly_income, data = df, family = binomial)
+
+# Waist circumference
+waist_model1 <- glm(fam_func_binary  ~ waist_circumference, data = df, family = binomial)
+
+# Hip circumference
+hip_model1 <- glm(fam_func_binary  ~ hip_circumference , data = df, family = binomial)
+
+# Systolic blood pressure
+sbp_model1 <- glm(fam_func_binary  ~ sbp, data = df, family = binomial)
+
+# Diastolic blood pressure
+dbp_model1 <- glm(fam_func_binary  ~ dbp, data = df, family = binomial)
+
+# Duration of diabetes
+duration_model1 <- glm(fam_func_binary  ~ duration_diabetes, data = df, family = binomial)
+
+# Treatment of diabetes
+treatment_model1 <- glm(fam_func_binary  ~ treatment_diabetes, data = df, family = binomial)
+```
+
+
+
 ```{r univariatetable-ff}
 # Sex model
 tf1 <- sex_model1 |>
@@ -579,6 +660,100 @@ uni_tf <- tbl_stack(list(tf1, tf2, tf3, tf4, tf5, tf6, tf7, tf8, tf9, tf10, tf11
 
 uni_tf
 ```
+
+
+## Multiple logistic: Family functionality
+
+
+
+```{r multiple-logistic-func}
+full_model1 <- glm(fam_func_binary ~ sex + age + education +
+                     marital_status +
+                     religious_background +
+                     employment_status +
+                     place_of_permanent_residence +
+                     monthly_income +
+                     sbp +
+                     dbp +
+                     waist_circumference +
+                     hip_circumference +
+                     duration_diabetes +
+                     treatment_diabetes,
+                   data = df,
+                   family = binomial
+                     )
+
+full_tf <- full_model1 |>
+  tbl_regression(
+    exponentiate = TRUE
+  ) |> bold_p() |>
+  bold_labels()
+
+full_tf
+```
+
+
+
+```{r full-model-functionality}
+final_model_tf <- full_model1|>
+  step(direction = "forward", trace = FALSE)
+
+final_model_tf |>
+  tbl_regression(
+    exponentiate = TRUE
+  ) |> bold_p() |>
+  bold_labels()
+
+final_model_tf
+```
+
+## Univariate models: Depression
+
+
+```{r univariate-depression}
+# Sex model
+sex_model2 <- glm(depression_binary ~ sex, data = df, family = binomial)
+
+# Age model
+age_model2 <- glm(depression_binary  ~ age, data = df, family = binomial)
+
+# Educational status
+education_model2 <- glm(depression_binary  ~ education, data = df, family = binomial)
+
+# Marital status
+marital_model2 <- glm(depression_binary  ~ marital_status, data = df, family = binomial)
+
+# Religious background
+religion_model2 <- glm(depression_binary  ~ religious_background, data = df, family = binomial)
+
+# Employment status
+employment_model2 <- glm(depression_binary  ~ employment_status, data = df, family = binomial)
+
+# Place of permanent residence
+permanent_model2 <- glm(depression_binary  ~ place_of_permanent_residence, data = df, family = binomial)
+
+# Monthly income
+income_model2 <- glm(depression_binary  ~ monthly_income, data = df, family = binomial)
+
+# Waist circumference
+waist_model2 <- glm(depression_binary  ~ waist_circumference, data = df, family = binomial)
+
+# Hip circumference
+hip_model2 <- glm(depression_binary  ~ hip_circumference , data = df, family = binomial)
+
+# Systolic blood pressure
+sbp_model2 <- glm(depression_binary  ~ sbp, data = df, family = binomial)
+
+# Diastolic blood pressure
+dbp_model2 <- glm(depression_binary  ~ dbp, data = df, family = binomial)
+
+# Duration of diabetes
+duration_model2 <- glm(depression_binary  ~ duration_diabetes, data = df, family = binomial)
+
+# Treatment of diabetes
+treatment_model2 <- glm(depression_binary ~ treatment_diabetes, data = df, family = binomial)
+```
+
 
 ```{r univariate-table-depression}
 # Sex model
@@ -686,59 +861,6 @@ uni_td <- tbl_stack(list(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11
 uni_td
 ```
 
-```{r full-model-hbaic}
-full_model <- glm(hbaic_cat_binary ~ sex + age + education +
-                     marital_status +
-                     religious_background +
-                     employment_status +
-                     place_of_permanent_residence +
-                     monthly_income +
-                     sbp +
-                     dbp +
-                     waist_circumference +
-                     hip_circumference +
-                     duration_diabetes +
-                     treatment_diabetes,
-                   data = df,
-                   family = binomial
-                     )
-
-full_th <- full_model |>
-  tbl_regression(
-    exponentiate = TRUE
-  ) |> bold_p() |>
-  bold_labels()
-
-full_th
-```
-
-
-```{r multiple-logistic-func}
-full_model1 <- glm(fam_func_binary ~ sex + age + education +
-                     marital_status +
-                     religious_background +
-                     employment_status +
-                     place_of_permanent_residence +
-                     monthly_income +
-                     sbp +
-                     dbp +
-                     waist_circumference +
-                     hip_circumference +
-                     duration_diabetes +
-                     treatment_diabetes,
-                   data = df,
-                   family = binomial
-                     )
-
-full_tf <- full_model1 |>
-  tbl_regression(
-    exponentiate = TRUE
-  ) |> bold_p() |>
-  bold_labels()
-
-full_tf
-```
-
 
 ```{r full-model-depression}
 full_model2 <- glm(depression_binary ~ sex + age + education +
@@ -766,34 +888,6 @@ full_td <- full_model2 |>
 full_td
 ```
 
-
-
-```{r final-model-step}
-final_model_th <- full_model|>
-  step(direction = "forward", trace = FALSE)
-
-final_model_th |>
-  tbl_regression(
-    exponentiate = TRUE
-  ) |> bold_p() |>
-  bold_labels()
-
-final_model_th
-```
-
-
-```{r full-model-functionality}
-final_model_tf <- full_model1|>
-  step(direction = "forward", trace = FALSE)
-
-final_model_tf |>
-  tbl_regression(
-    exponentiate = TRUE
-  ) |> bold_p() |>
-  bold_labels()
-
-final_model_tf
-```
 
 
 ```{r}
