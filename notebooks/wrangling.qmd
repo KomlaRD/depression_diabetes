@@ -92,7 +92,15 @@ df <- df |>
       hba1c_value < 7 ~ "Good control",
       hba1c_value >= 7 ~ "Poor control"
     ) |>
-      ff_label("HBA1C categories")
+      ff_label("HBA1C categories"),
+    education = education |>
+      fct_relevel(
+        "No formal education",
+        "Primary school",
+        "Middle school/JSS/JHS",
+        "Secondary school/SSS/SHS",
+        "Tertiary and above"
+      )
   )
 ```
 
