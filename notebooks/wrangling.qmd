@@ -100,7 +100,8 @@ df <- df |>
         "Middle school/JSS/JHS",
         "Secondary school/SSS/SHS",
         "Tertiary and above"
-      )
+      ),
+    age = age |> ff_label("Age (years)")
   )
 ```
 
@@ -131,8 +132,7 @@ df <- df |>
       bmi >= 18.5 & bmi <= 24.9 ~ "Normal",
       bmi >= 25 & bmi <= 29.9 ~ "Overweight",
       .default = "Obesity"
-    ) |> 
-      ff_label("BMI categories")
+    ) 
   )
 ```
 
@@ -145,7 +145,8 @@ df <- df |>
         "Normal",
         "Overweight",
         "Obesity"
-      )
+      ) |> 
+      ff_label("BMI categories")
   )
 ```
 
