@@ -874,6 +874,12 @@ duration_model2 <- glm(depression_binary  ~ duration_diabetes, data = df, family
 
 # Treatment of diabetes
 treatment_model2 <- glm(depression_binary ~ treatment_diabetes, data = df, family = binomial)
+
+# BMI category
+bmi_model2 <- glm(depression_binary ~ bmi_cat, data = df, family = binomial)
+
+# Blood pressure category
+bpcat_model2 <- glm(depression_binary ~ bp_cat, data = df, family = binomial) 
 ```
 
 
@@ -978,24 +984,31 @@ td14 <- treatment_model2 |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-uni_td <- tbl_stack(list(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11, td12, td13, td14))
+# BMI category
+td15 <- bmi_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Blood pressure category
+td16 <- bpcat_model2 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+uni_td <- tbl_stack(list(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11, td12, td13, td14, td15, td16))
 
 uni_td
 ```
 
 
-```{r full-model-depression}
+```{r full-model-depression, message=FALSE, warning=FALSE}
 full_model2 <- glm(depression_binary ~ sex + age + education +
-                     marital_status +
-                     religious_background +
                      employment_status +
-                     place_of_permanent_residence +
-                     monthly_income +
-                     sbp +
-                     dbp +
-                     waist_circumference +
-                     hip_circumference +
                      duration_diabetes +
+                     monthly_income +
                      treatment_diabetes,
                    data = df,
                    family = binomial
@@ -1025,6 +1038,49 @@ final_model_td |>
 final_model_td
 ```
 
+## Model selection: Depression
+
+```{r model-selection-family-depression, echo=FALSE, eval=FALSE}
+#| message: false
+#| warning: false
+explanatory_multi_d <- c(
+"education",
+"age",
+"sex",
+"duration_diabetes",
+"treatment_diabetes",
+"monthly_income"
+)
+
+
+# "sex",
+# "age",
+# "education",
+# "marital_status",
+# "religious_background",
+# "employment_status",
+# "place_of_permanent_residence",
+# "monthly_income",
+# "body_weight",
+# "height",
+# "waist_circumference",
+# "hip_circumference",
+# "sbp",
+# "dbp",
+# "duration_diabetes",
+# "treatment_diabetes"
+
+df |>
+  finalfit.glm(dependent=dependent_dep, explanatory, explanatory_multi_d, keep_models = TRUE, metrics = TRUE) 
+```
+
+
+```{r combine-uni-multi-d}
+# Combine univariate and multiple logistic regression tables
+tbl_merge(list(uni_td, full_td), tab_spanner = c(
+  "**Univariate regression**", "**Multivariable regression**"
+))
+```
 
 
 
