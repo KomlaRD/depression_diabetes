@@ -604,6 +604,12 @@ duration_model1 <- glm(fam_func_binary  ~ duration_diabetes, data = df, family =
 
 # Treatment of diabetes
 treatment_model1 <- glm(fam_func_binary  ~ treatment_diabetes, data = df, family = binomial)
+
+# BMI category
+bmi_model1 <- glm(fam_func_binary ~ bmi_cat, data = df, family = binomial)
+
+# Blood pressure category
+bpcat_model1 <- glm(fam_func_binary ~ bp_cat, data = df, family = binomial) 
 ```
 
 
@@ -709,7 +715,21 @@ tf14 <- treatment_model1 |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-uni_tf <- tbl_stack(list(tf1, tf2, tf3, tf4, tf5, tf6, tf7, tf8, tf9, tf10, tf11, tf12, tf13, th14))
+# BMI category
+tf15 <- bmi_model1 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Blood pressure category
+tf16 <- bpcat_model1 |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+uni_tf <- tbl_stack(list(tf1, tf2, tf3, tf4, tf5, tf6, tf7, tf8, tf9, tf10, tf11, tf12, tf13, tf14, tf15, tf16))
 
 uni_tf
 ```
@@ -720,21 +740,23 @@ uni_tf
 
 
 ```{r multiple-logistic-func}
-full_model1 <- glm(fam_func_binary ~ sex + age + education +
-                     marital_status +
-                     religious_background +
-                     employment_status +
-                     place_of_permanent_residence +
+full_model1 <- glm(fam_func_binary ~ sex + age +
+                     bp_cat +
                      monthly_income +
-                     sbp +
-                     dbp +
-                     waist_circumference +
-                     hip_circumference +
+                     marital_status +
                      duration_diabetes +
-                     treatment_diabetes,
+                     bmi_cat,
                    data = df,
                    family = binomial
                      )
+
+# "bp_cat",
+# "age",
+# "sex",
+# "marital_status",
+# "bmi_cat",
+# "monthly_income",
+# "duration_diabetes"
 
 full_tf <- full_model1 |>
   tbl_regression(
@@ -759,6 +781,53 @@ final_model_tf |>
 
 final_model_tf
 ```
+
+## Model selection: Family functionality
+
+```{r model-selection-family-functionality}
+#| message: false
+#| warning: false
+explanatory_multi_f <- c(
+"bp_cat",
+"age",
+"sex",
+"marital_status",
+"bmi_cat",
+"monthly_income",
+"duration_diabetes"
+)
+
+
+# "sex",
+# "age",
+# "education",
+# "marital_status",
+# "religious_background",
+# "employment_status",
+# "place_of_permanent_residence",
+# "monthly_income",
+# "body_weight",
+# "height",
+# "waist_circumference",
+# "hip_circumference",
+# "sbp",
+# "dbp",
+# "duration_diabetes",
+# "treatment_diabetes"
+
+df |>
+  finalfit.glm(dependent=dependent_ff, explanatory, explanatory_multi_f, keep_models = TRUE, metrics = TRUE) 
+```
+
+
+```{r combine-uni-multi-ff}
+# Combine univariate and multiple logistic regression tables
+tbl_merge(list(uni_tf, full_tf), tab_spanner = c(
+  "**Univariate regression**", "**Multivariable regression**"
+))
+```
+
+
 
 ## Univariate models: Depression
 
