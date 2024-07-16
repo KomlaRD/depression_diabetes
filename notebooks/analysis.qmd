@@ -1,7 +1,10 @@
 ---
 title: "Depression among patients living with diabetes - Analysis"
-author: "Eric Anku"
-format: html
+format: docx
+table-of-contents: true
+editor: visual
+fontfamily: "Times New Roman"
+fontsize: 12pt
 ---
 
 ```{r import-libraries}
@@ -71,20 +74,20 @@ categorical_variables <- categorical_vars |>
 
 colnames(categorical_variables)[]
 ```
-```{r}
- cat <- C() "sex"                          "education"                   
-  "marital_status"               "religious_background"        
- "employment_status"            "place_of_permanent_residence"
- "monthly_income"               "duration_diabetes_cat"       
- "treatment_diabetes"           "ff1"                         
-"ff2"                          "ff3"                         
-"ff4"                          "ff5"                         
-"phq1"                         "phq2"                        
-"phq3"                         "phq4"                        
-"phq5"                         "phq6"                        
-"phq7"                         "phq8"                        
-"phq9"                         "functionality_cat"           
-"depression_cat"   
+```{r eval=FALSE}
+#  cat <-  "sex"                          "education"                   
+#   "marital_status"               "religious_background"        
+#  "employment_status"            "place_of_permanent_residence"
+#  "monthly_income"               "duration_diabetes_cat"       
+#  "treatment_diabetes"           "ff1"                         
+# "ff2"                          "ff3"                         
+# "ff4"                          "ff5"                         
+# "phq1"                         "phq2"                        
+# "phq3"                         "phq4"                        
+# "phq5"                         "phq6"                        
+# "phq7"                         "phq8"                        
+# "phq9"                         "functionality_cat"           
+# "depression_cat"   
 ```
 
 ## Demographics
@@ -114,7 +117,7 @@ health |>
     sort = list(c(treatment_diabetes) ~ "frequency"
   ) )|>
     bold_labels() |>
-    add_ci("bmi_cat", "bp_cat", "whr_cat", "treatment_diabetes")
+    add_ci(include=c("bmi_cat", "bp_cat", "whr_cat", "treatment_diabetes"))
   
 ```
 
@@ -209,13 +212,11 @@ health |>
 
 ```{r health-depression}
 # Health characteristics by depression
-demographics |>
+health |>
   tbl_summary(by = depression_cat) |>
   add_p() |>
   bold_p() |> bold_labels()
 ```
-
-
 # Logistic regression
 
 ## Multicolinearity
@@ -352,6 +353,12 @@ duration_model <- glm(hbaic_cat_binary ~ duration_diabetes, data = df, family = 
 
 # Treatment of diabetes
 treatment_model <- glm(hbaic_cat_binary ~ treatment_diabetes, data = df, family = binomial)
+
+# BMI category
+bmi_model <- glm(hbaic_cat_binary ~ bmi_cat, data = df, family = binomial)
+
+# Blood pressure category
+bpcat_model <- glm(hbaic_cat_binary ~ bp_cat, data = df, family = binomial) 
 ```
 
 ```{r univariate-table-hbaic}
@@ -455,7 +462,21 @@ th14 <- treatment_model |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-uni_th <- tbl_stack(list(th1, th2, th3, th4, th5, th6, th7, th8, th9, th10, th11, th12, th13, th14))
+# BMI category
+th15 <- bmi_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Blood pressure category
+th16 <- bpcat_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+uni_th <- tbl_stack(list(th1, th2, th3, th4, th5, th6, th7, th8, th9, th10, th11, th12, th13, th14, th15, th16))
 
 uni_th
 ```
@@ -463,18 +484,24 @@ uni_th
 ### Multiple logisitic: HBA1C
 
 ```{r full-model-hbaic}
-full_model <- glm(hbaic_cat_binary ~ sex + age + education +
-                     marital_status +
-                     religious_background +
-                     employment_status +
-                     place_of_permanent_residence +
-                     monthly_income +
-                     sbp +
-                     dbp +
-                     waist_circumference +
-                     hip_circumference +
-                     duration_diabetes +
-                     treatment_diabetes,
+# full_model <- glm(hbaic_cat_binary ~ sex + age + education +
+#                      marital_status +
+#                      religious_background +
+#                      employment_status +
+#                      place_of_permanent_residence +
+#                      monthly_income +
+#                      sbp +
+#                      dbp +
+#                      waist_circumference +
+#                      hip_circumference +
+#                      duration_diabetes +
+#                      treatment_diabetes,
+#                    data = df,
+#                    family = binomial
+#                      )
+
+full_model <- glm(hbaic_cat_binary ~ age + bp_cat + bmi_cat +
+                     duration_diabetes,
                    data = df,
                    family = binomial
                      )
@@ -504,6 +531,32 @@ final_model_th
 ```
 
 
+```{r combine-uni-multi-hbaic}
+# Combine univariate and multiple logistic regression tables
+tbl_merge(list(uni_th, full_th), tab_spanner = c(
+  "**Univariate regression**", "**Multivariable regression**"
+))
+```
+
+## Model selection: HBA1C
+
+```{r model-selection-hbaic, eval=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+#| message: false
+#| warning: false
+explanatory_multi_h <- c(
+"age",
+"bp_cat",
+"bmi_cat",
+"duration_diabetes"
+)
+
+# "bp_cat",           
+# "duration_diabetes",
+# "bmi_cat"
+df |>
+  finalfit.glm(dependent=dependent_hb, explanatory, explanatory_multi_h, keep_models = TRUE, metrics = TRUE) 
+
+```
 
 
 ## Univariate models: family functionality
@@ -902,6 +955,8 @@ final_model_td |>
 
 final_model_td
 ```
+
+
 
 
 
