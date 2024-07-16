@@ -127,12 +127,25 @@ mutate(
 df <- df |>
   mutate(
     bmi_cat = case_when(
-      bmi < 18.5 ~ "Underweighht",
+      bmi < 18.5 ~ "Underweight",
       bmi >= 18.5 & bmi <= 24.9 ~ "Normal",
       bmi >= 25 & bmi <= 29.9 ~ "Overweight",
       .default = "Obesity"
     ) |> 
       ff_label("BMI categories")
+  )
+```
+
+```{r relevel-bmi-cat}
+df <- df |>
+  mutate(
+    bmi_cat = factor(bmi_cat) |>
+      fct_relevel(
+        "Underweight",
+        "Normal",
+        "Overweight",
+        "Obesity"
+      )
   )
 ```
 
