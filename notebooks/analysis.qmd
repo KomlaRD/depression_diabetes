@@ -3,7 +3,6 @@ title: "Depression among patients living with diabetes - Analysis"
 format: docx
 table-of-contents: true
 editor: visual
-fontsize: 12pt
 ---
 
 ```{r setup, include=FALSE}
@@ -104,11 +103,11 @@ demographics |>
   tbl_summary(
     missing_text = "Missing",
     sort = list(c(marital_status, religious_background,
-                  employment_status) ~ "frequency")
+                  employment_status, mar_stat_two, mar_stat_three) ~ "frequency")
 )|>
   bold_labels() |>
   add_ci(include=c(
-    "sex","education","marital_status","religious_background","employment_status", "place_of_permanent_residence", "monthly_income", "hbaic_cat", "functionality_cat", "depression_cat"
+     "hbaic_cat", "functionality_cat", "depression_cat"
   ))
 ```
 
@@ -324,14 +323,26 @@ sex_model <- glm(hbaic_cat_binary ~ sex, data = df, family = binomial)
 # Age model
 age_model <- glm(hbaic_cat_binary ~ age, data = df, family = binomial)
 
+# Age group model
+age_gmodel <- glm(hbaic_cat_binary ~ age_group, data = df, family = binomial)
+
 # Educational status
 education_model <- glm(hbaic_cat_binary ~ education, data = df, family = binomial)
 
 # Marital status
 marital_model <- glm(hbaic_cat_binary ~ marital_status, data = df, family = binomial)
 
+# Marital status (Two categories)
+marital_two_model <- glm(hbaic_cat_binary ~ mar_stat_two, data = df, family = binomial)
+
+# Marital status (Three categories)
+marital_three_model <- glm(hbaic_cat_binary ~ mar_stat_three, data = df, family = binomial)
+
 # Religious background
 religion_model <- glm(hbaic_cat_binary ~ religious_background, data = df, family = binomial)
+
+# Religious background (Two categories)
+religion_two_model <- glm(hbaic_cat_binary ~ religion_two, data = df, family = binomial)
 
 # Employment status
 employment_model <- glm(hbaic_cat_binary ~ employment_status, data = df, family = binomial)
@@ -393,13 +404,6 @@ th3 <- education_model |> tbl_regression(
 
 # Marital status
 th4 <- marital_model |> tbl_regression(
-    exponentiate = TRUE
-  ) |>
-  bold_p() |>
-  bold_labels()
-
-# Religious background
-th5 <- religion_model |> tbl_regression(
     exponentiate = TRUE
   ) |>
   bold_p() |>
@@ -482,7 +486,35 @@ th16 <- bpcat_model |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-uni_th <- tbl_stack(list(th1, th2, th3, th4, th5, th6, th7, th8, th9, th10, th11, th12, th13, th14, th15, th16))
+# Age group model
+th17 <- age_gmodel |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Marital two model
+th18 <- marital_two_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Marital three model
+th19 <- marital_three_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+# Religious two model
+th20 <- religious_two_model |> tbl_regression(
+    exponentiate = TRUE
+  ) |>
+  bold_p() |>
+  bold_labels()
+
+uni_th <- tbl_stack(list(th1, th2, th3, th4, th6, th7, th8, th9, th10, th11, th12, th13, th14, th15, th16, th17, th18, th19, th20))
 
 uni_th
 ```
@@ -644,19 +676,6 @@ tf3 <- education_model1 |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-# Marital status
-tf4 <- marital_model1 |> tbl_regression(
-    exponentiate = TRUE
-  ) |>
-  bold_p() |>
-  bold_labels()
-
-# Religious background
-tf5 <- religion_model1 |> tbl_regression(
-    exponentiate = TRUE
-  ) |>
-  bold_p() |>
-  bold_labels()
 
 # Employment status
 tf6 <- employment_model1 |> tbl_regression(
@@ -735,7 +754,7 @@ tf16 <- bpcat_model1 |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-uni_tf <- tbl_stack(list(tf1, tf2, tf3, tf4, tf5, tf6, tf7, tf8, tf9, tf10, tf11, tf12, tf13, tf14, tf15, tf16))
+uni_tf <- tbl_stack(list(tf1, tf2, tf3, tf6, tf7, tf8, tf9, tf10, tf11, tf12, tf13, tf14, tf15, tf16))
 
 uni_tf
 ```
@@ -769,8 +788,6 @@ full_tf <- full_model1 |>
     exponentiate = TRUE
   ) |> bold_p() |>
   bold_labels()
-
-full_tf
 ```
 
 
@@ -784,8 +801,6 @@ final_model_tf |>
     exponentiate = TRUE
   ) |> bold_p() |>
   bold_labels()
-
-final_model_tf
 ```
 
 ## Model selection: Family functionality
@@ -821,8 +836,8 @@ explanatory_multi_f <- c(
 # "duration_diabetes",
 # "treatment_diabetes"
 
-df |>
-  finalfit.glm(dependent=dependent_ff, explanatory, explanatory_multi_f, keep_models = TRUE, metrics = TRUE) 
+# df |>
+#   finalfit.glm(dependent=dependent_ff, explanatory, explanatory_multi_f, keep_models = TRUE, metrics = TRUE) 
 ```
 
 
@@ -913,19 +928,6 @@ td3 <- education_model2 |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-# Marital status
-td4 <- marital_model2 |> tbl_regression(
-    exponentiate = TRUE
-  ) |>
-  bold_p() |>
-  bold_labels()
-
-# Religious background
-td5 <- religion_model2 |> tbl_regression(
-    exponentiate = TRUE
-  ) |>
-  bold_p() |>
-  bold_labels()
 
 # Employment status
 td6 <- employment_model2 |> tbl_regression(
@@ -936,13 +938,6 @@ td6 <- employment_model2 |> tbl_regression(
 
 # Place of permanent residence
 td7 <- permanent_model2 |> tbl_regression(
-    exponentiate = TRUE
-  ) |>
-  bold_p() |>
-  bold_labels()
-
-# Monthly income
-td8 <- income_model2 |> tbl_regression(
     exponentiate = TRUE
   ) |>
   bold_p() |>
@@ -990,13 +985,6 @@ td14 <- treatment_model2 |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-# BMI category
-td15 <- bmi_model2 |> tbl_regression(
-    exponentiate = TRUE
-  ) |>
-  bold_p() |>
-  bold_labels()
-
 # Blood pressure category
 td16 <- bpcat_model2 |> tbl_regression(
     exponentiate = TRUE
@@ -1004,7 +992,7 @@ td16 <- bpcat_model2 |> tbl_regression(
   bold_p() |>
   bold_labels()
 
-uni_td <- tbl_stack(list(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11, td12, td13, td14, td15, td16))
+uni_td <- tbl_stack(list(td1, td2, td3, td6, td7, td9, td10, td11, td12, td13, td14, td16))
 
 uni_td
 ```
@@ -1025,8 +1013,6 @@ full_td <- full_model2 |>
     exponentiate = TRUE
   ) |> bold_p() |>
   bold_labels()
-
-full_td
 ```
 
 
@@ -1040,8 +1026,6 @@ final_model_td |>
     exponentiate = TRUE
   ) |> bold_p() |>
   bold_labels()
-
-final_model_td
 ```
 
 ## Model selection: Depression
@@ -1075,9 +1059,9 @@ explanatory_multi_d <- c(
 # "dbp",
 # "duration_diabetes",
 # "treatment_diabetes"
-
-df |>
-  finalfit.glm(dependent=dependent_dep, explanatory, explanatory_multi_d, keep_models = TRUE, metrics = TRUE) 
+# 
+# df |>
+#   finalfit.glm(dependent=dependent_dep, explanatory, explanatory_multi_d, keep_models = TRUE, metrics = TRUE) 
 ```
 
 
