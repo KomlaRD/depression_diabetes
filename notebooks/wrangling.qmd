@@ -101,7 +101,22 @@ df <- df |>
         "Secondary school/SSS/SHS",
         "Tertiary and above"
       ),
-    age = age |> ff_label("Age (years)")
+    age = age |> ff_label("Age (years)"),
+    age_group = case_when(age <= 60 ~ "Below 60 years", 
+                          .default = "Above 60 years"),
+    mar_stat_three = fct_recode(
+      marital_status,
+      "Single" = "Single/never maried",
+      "Single" = "Widowed",
+      "Single" = "Divorced/Separated"
+    ),
+    mar_stat_two = fct_recode(
+      marital_status,
+      "Not married" = "Single/never maried",
+      "Not married" = "Widowed",
+      "Not married" = "Divorced/Separated",
+      "Not married" = "Cohabiting"
+    )
   )
 ```
 
