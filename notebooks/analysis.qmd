@@ -508,7 +508,7 @@ th19 <- marital_three_model |> tbl_regression(
   bold_labels()
 
 # Religious two model
-th20 <- religious_two_model |> tbl_regression(
+th20 <- religion_two_model |> tbl_regression(
     exponentiate = TRUE
   ) |>
   bold_p() |>
@@ -539,7 +539,7 @@ uni_th
 #                      )
 
 full_model <- glm(hbaic_cat_binary ~ age + bp_cat + bmi_cat +
-                     duration_diabetes,
+                     duration_diabetes + age_group,
                    data = df,
                    family = binomial
                      )
@@ -600,7 +600,7 @@ df |>
 ## Univariate models: family functionality
 
 
-```{r univariate-ff}
+```{r univariate-ff, eval= FALSE}
 # Sex model
 sex_model1 <- glm(fam_func_binary ~ sex, data = df, family = binomial)
 
@@ -652,7 +652,7 @@ bpcat_model1 <- glm(fam_func_binary ~ bp_cat, data = df, family = binomial)
 
 
 
-```{r univariatetable-ff}
+```{r univariatetable-ff, eval=FALSE}
 # Sex model
 tf1 <- sex_model1 |>
   tbl_regression(
@@ -764,7 +764,7 @@ uni_tf
 
 
 
-```{r multiple-logistic-func}
+```{r multiple-logistic-func, eval=FALSE}
 full_model1 <- glm(fam_func_binary ~ sex + age +
                      bp_cat +
                      monthly_income +
@@ -792,7 +792,7 @@ full_tf <- full_model1 |>
 
 
 
-```{r full-model-functionality}
+```{r full-model-functionality, eval=FALSE}
 final_model_tf <- full_model1|>
   step(direction = "forward", trace = FALSE)
 
@@ -805,7 +805,7 @@ final_model_tf |>
 
 ## Model selection: Family functionality
 
-```{r model-selection-family-functionality}
+```{r model-selection-family-functionality, eval=FALSE}
 #| message: false
 #| warning: false
 explanatory_multi_f <- c(
@@ -841,7 +841,7 @@ explanatory_multi_f <- c(
 ```
 
 
-```{r combine-uni-multi-ff}
+```{r combine-uni-multi-ff, eval=FALSE}
 # Combine univariate and multiple logistic regression tables
 tbl_merge(list(uni_tf, full_tf), tab_spanner = c(
   "**Univariate regression**", "**Multivariable regression**"
@@ -853,7 +853,7 @@ tbl_merge(list(uni_tf, full_tf), tab_spanner = c(
 ## Univariate models: Depression
 
 
-```{r univariate-depression}
+```{r univariate-depression, eval=FALSE}
 # Sex model
 sex_model2 <- glm(depression_binary ~ sex, data = df, family = binomial)
 
@@ -904,7 +904,7 @@ bpcat_model2 <- glm(depression_binary ~ bp_cat, data = df, family = binomial)
 ```
 
 
-```{r univariate-table-depression}
+```{r univariate-table-depression, eval=FALSE}
 # Sex model
 td1 <- sex_model2 |>
   tbl_regression(
@@ -998,7 +998,7 @@ uni_td
 ```
 
 
-```{r full-model-depression, message=FALSE, warning=FALSE}
+```{r full-model-depression, message=FALSE, warning=FALSE, eval=FALSE}
 full_model2 <- glm(depression_binary ~ sex + age + education +
                      employment_status +
                      duration_diabetes +
@@ -1017,7 +1017,7 @@ full_td <- full_model2 |>
 
 
 
-```{r}
+```{r eval=FALSE}
 final_model_td <- full_model1|>
   step(direction = "forward", trace = FALSE)
 
@@ -1065,7 +1065,7 @@ explanatory_multi_d <- c(
 ```
 
 
-```{r combine-uni-multi-d}
+```{r combine-uni-multi-d, eval=FALSE}
 # Combine univariate and multiple logistic regression tables
 tbl_merge(list(uni_td, full_td), tab_spanner = c(
   "**Univariate regression**", "**Multivariable regression**"
