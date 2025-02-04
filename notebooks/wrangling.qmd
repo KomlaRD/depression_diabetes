@@ -192,12 +192,15 @@ demographics <-
   select(
     sex,
     age,
+    age_group,
     education,
     marital_status,
     religious_background,
     employment_status,
     place_of_permanent_residence,
     monthly_income,
+    mar_stat_two,
+    mar_stat_three,
     functionality_cat,
     depression_cat,
     hbaic_cat
