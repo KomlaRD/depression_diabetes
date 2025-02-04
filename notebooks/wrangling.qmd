@@ -202,6 +202,7 @@ demographics <-
     education,
     marital_status,
     religious_background,
+    religion_two,
     employment_status,
     place_of_permanent_residence,
     monthly_income,
