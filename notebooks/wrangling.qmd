@@ -12,7 +12,8 @@ pacman::p_load(
   rio, # Import and Export dataset
   here, # File management
   skimr, # Skim data
-  finalfit # Labelling data
+  finalfit, # Labelling data
+  DataExplorer # EDA
 )
 ```
 
@@ -109,14 +110,19 @@ df <- df |>
       "Single" = "Single/never maried",
       "Single" = "Widowed",
       "Single" = "Divorced/Separated"
-    ),
+    ) |> ff_label("Marital stauts"),
     mar_stat_two = fct_recode(
       marital_status,
       "Not married" = "Single/never maried",
       "Not married" = "Widowed",
       "Not married" = "Divorced/Separated",
       "Not married" = "Cohabiting"
-    )
+    ) |> ff_label("Marital status"),
+    religion_two = fct_recode(
+      religious_background,
+      "Non Christian" = "Moslem", 
+      "Non Christian" = "Traditionalist", 
+      "Non Christian" = "No religion")
   )
 ```
 
@@ -259,6 +265,11 @@ depress <-
     depression_cat
   )
 ```
+
+```{r create-report}
+create_report(df, report_title = "Depression study")
+```
+
 
 ```{r export-clean-data}
 # Main dataset
