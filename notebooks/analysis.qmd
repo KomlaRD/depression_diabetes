@@ -285,28 +285,20 @@ stacked
 ### Multiple logisitic: HBA1C
 
 ```{r full-model-hbaic}
-# full_model <- glm(hbaic_cat_binary ~ sex + age + education +
-#                      marital_status +
-#                      religious_background +
-#                      employment_status +
-#                      place_of_permanent_residence +
-#                      monthly_income +
-#                      sbp +
-#                      dbp +
-#                      waist_circumference +
-#                      hip_circumference +
-#                      duration_diabetes +
-#                      treatment_diabetes,
-#                    data = df,
-#                    family = binomial
-#                      )
-
-full_model <- glm(hbaic_cat_binary ~ age + bp_cat + bmi_cat +
-                     duration_diabetes + age_group,
+# Backward elimination
+full_model <- glm(hbaic_cat_binary ~ age +
+                     sbp +
+                     bmi_cat +
+                     duration_diabetes_cat +
+                     treatment_diabetes,
                    data = df,
                    family = binomial
                      )
 
+```
+
+
+```{r}
 full_th <- full_model |>
   tbl_regression(
     exponentiate = TRUE
@@ -315,49 +307,4 @@ full_th <- full_model |>
 
 full_th
 ```
-
-
-
-```{r final-model-step}
-final_model_th <- full_model|>
-  step(direction = "forward", trace = FALSE)
-
-final_model_th |>
-  tbl_regression(
-    exponentiate = TRUE
-  ) |> bold_p() |>
-  bold_labels()
-
-final_model_th
-```
-
-
-```{r combine-uni-multi-hbaic}
-# Combine univariate and multiple logistic regression tables
-tbl_merge(list(uni_th, full_th), tab_spanner = c(
-  "**Univariate regression**", "**Multivariable regression**"
-))
-```
-
-## Model selection: HBA1C
-
-```{r model-selection-hbaic, eval=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
-#| message: false
-#| warning: false
-explanatory_multi_h <- c(
-"age",
-"bp_cat",
-"bmi_cat",
-"duration_diabetes"
-)
-
-# "bp_cat",           
-# "duration_diabetes",
-# "bmi_cat"
-df |>
-  finalfit.glm(dependent=dependent_hb, explanatory, explanatory_multi_h, keep_models = TRUE, metrics = TRUE) 
-
-```
-
-
 
