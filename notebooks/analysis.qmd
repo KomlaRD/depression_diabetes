@@ -185,18 +185,6 @@ demographics |>
   
 ```
 
-
-## Demographics stratified by depression
-
-```{r demo-depression}
-# Demographics by depression
-demographics |>
-  tbl_summary(by = depression_cat) |>
-  add_p() |>
-  bold_p() |>
-  bold_labels()
-```
-
 ## Health characteristics stratified by HBA1C outcome
 
 ```{r health-hbaic}
