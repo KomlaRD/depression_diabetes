@@ -85,14 +85,32 @@ colnames(categorical_vars)
 
 ## Demographics
 
+```{r factor-relevel-label}
+# Factor relevel monthly income, label age and age groups
+demographics <- demographics |>
+  mutate(
+    monthly_income = monthly_income |>
+      fct_relevel(
+     "Below 546",
+     "From 546 to 999",
+    "From 1000 to 1499",
+    "From 1500 to 1999",
+     "2000 and above") |>
+      ff_label("Monthly income in Ghanaian cedis"),
+     age = age |> ff_label("Age (years)"),
+     age_group = age_group |> ff_label("Age groups")
+  )
+
+```
+
 ```{r descriptives}
 # Demographics
 demographics |>
-  select(c(-id, depression_cat, hbaic_cat)) |>
+  select(-c(id, depression_cat, functional_cat, hbaic_cat, religion_two, mar_stat_two, mar_stat_three)) |>
   tbl_summary(
     missing_text = "Missing",
     sort = list(c(marital_status, religious_background,
-                  employment_status, mar_stat_two, mar_stat_three) ~ "frequency")
+                  employment_status, place_of_permanent_residence) ~ "frequency")
 )|>
   bold_labels()
 ```
