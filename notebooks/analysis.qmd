@@ -1,5 +1,5 @@
 ---
-title: "Depression among patients living with diabetes - Analysis"
+title: "Depression, Family Functionality and Glycemic Control - Analysis"
 format: docx
 table-of-contents: true
 editor: visual
@@ -34,7 +34,7 @@ pacman::p_load(
 # Import datasets
 df <- import(here("data", "clean_data.RData"), trust = TRUE) # Full dataset
 demographics <- import(here("data", "demos.RData"), trust = TRUE) # Demographics subset
-depress <- import(here("data", "depression.RData"), trust = TRUE) # Depression subset
+depression <- import(here("data", "depression.RData"), trust = TRUE) # Depression subset
 fam_func <- import(here("data", "family.RData"), trust = TRUE) # Family functionality
 health <- import(here("data", "health.RData"), trust = TRUE) # Health characteristics 
 ```
