@@ -74,25 +74,13 @@ print(shapiro_p_values)
 categorical_vars <- df |> 
   select_if(is.factor)
 
-categorical_variables <- categorical_vars |>
-  select(-c(id))
-
-colnames(categorical_variables)[]
+colnames(categorical_vars)
 ```
+
 ```{r eval=FALSE}
-#  cat <-  "sex"                          "education"                   
-#   "marital_status"               "religious_background"        
-#  "employment_status"            "place_of_permanent_residence"
-#  "monthly_income"               "duration_diabetes_cat"       
-#  "treatment_diabetes"           "ff1"                         
-# "ff2"                          "ff3"                         
-# "ff4"                          "ff5"                         
-# "phq1"                         "phq2"                        
-# "phq3"                         "phq4"                        
-# "phq5"                         "phq6"                        
-# "phq7"                         "phq8"                        
-# "phq9"                         "functionality_cat"           
-# "depression_cat"   
+#  [1] "sex"                          "education"                    "marital_status"               "religious_background"         "employment_status"           
+#  [6] "place_of_permanent_residence" "monthly_income"               "duration_diabetes_cat"        "treatment_diabetes"           "functionality_cat"           
+# [11] "depression_cat"               "mar_stat_three"               "mar_stat_two"                 "religion_two"                 "bmi_cat
 ```
 
 ## Demographics
