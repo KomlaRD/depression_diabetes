@@ -289,6 +289,7 @@ health <-
     whtr,
     whr_cat,
     duration_diabetes,
+    duration_diabetes_cat,
     treatment_diabetes,
     functionality_cat,
     depression_cat,
@@ -305,7 +306,7 @@ fam_func <-
   )
 
 # Depression
-depress <- 
+depression <- 
   df |>
   select(
     id,
@@ -315,7 +316,7 @@ depress <-
 ```
 
 ```{r create-report}
-create_report(df, report_title = "Depression study")
+create_report(df, report_title = "Depression, Family Functionality and Glycemic Control Study")
 ```
 
 ```{r export-clean-data}
@@ -325,13 +326,17 @@ export(df, here("data", "clean_data.csv"))
 
 # Demographics
 export(demographics, here("data", "demos.RData"))
+export(demographics, here("data", "demos.csv"))
 
 # Health related characteristics
 export(health, here("data", "health.RData"))
+export(health, here("data", "health.csv"))
 
 # Family functionality
 export(fam_func, here("data", "family.RData"))
+export(fam_func, here("data", "family.csv"))
 
 # Depression
-export(depress, here("data", "depression.RData"))
+export(depression, here("data", "depression.RData"))
+export(depression, here("data", "depression.csv"))
 ```
