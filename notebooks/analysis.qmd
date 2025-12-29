@@ -196,26 +196,8 @@ health |>
   bold_labels()
 ```
 
-## Health characteristics stratified by family functionality
 
 
-```{r health-func}
-# Health characteristics by family functionality
-health |>
-  tbl_summary(by = functionality_cat) |>
-  add_p() |>
-  bold_p() |> bold_labels()
-```
-
-## Health characteristics stratified by depression outcome
-
-```{r health-depression}
-# Health characteristics by depression
-health |>
-  tbl_summary(by = depression_cat) |>
-  add_p() |>
-  bold_p() |> bold_labels()
-```
 # Logistic regression
 
 ## Multicolinearity
