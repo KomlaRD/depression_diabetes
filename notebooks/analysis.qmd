@@ -186,18 +186,6 @@ demographics |>
 ```
 
 
-## Demographics stratified by family functionality
-
-```{r demo-func}
-# Demographics by family functionality
-demographics |>
-  tbl_summary(by = functionality_cat) |>
-  add_p() |>
-  bold_p() |>
-  bold_labels()
-```
-
-
 ## Demographics stratified by depression
 
 ```{r demo-depression}
