@@ -263,65 +263,17 @@ numeric_vars |>
 
 
 ```{r hbaic-univariate}
-# Sex model
-sex_model <- glm(hbaic_cat_binary ~ sex, data = df, family = binomial)
+# Vector of predictor variable names
+predictors <- c(
+  "sex", "age", "education", "marital_status", "religious_background",  "employment_status", "place_of_permanent_residence",
+  "monthly_income", "sbp", "dbp", "duration_diabetes_cat", "treatment_diabetes", "bmi_cat", "bp_cat", "functionality_cat", "depression_cat"
+)
 
-# Age model
-age_model <- glm(hbaic_cat_binary ~ age, data = df, family = binomial)
-
-# Age group model
-age_gmodel <- glm(hbaic_cat_binary ~ age_group, data = df, family = binomial)
-
-# Educational status
-education_model <- glm(hbaic_cat_binary ~ education, data = df, family = binomial)
-
-# Marital status
-marital_model <- glm(hbaic_cat_binary ~ marital_status, data = df, family = binomial)
-
-# Marital status (Two categories)
-marital_two_model <- glm(hbaic_cat_binary ~ mar_stat_two, data = df, family = binomial)
-
-# Marital status (Three categories)
-marital_three_model <- glm(hbaic_cat_binary ~ mar_stat_three, data = df, family = binomial)
-
-# Religious background
-religion_model <- glm(hbaic_cat_binary ~ religious_background, data = df, family = binomial)
-
-# Religious background (Two categories)
-religion_two_model <- glm(hbaic_cat_binary ~ religion_two, data = df, family = binomial)
-
-# Employment status
-employment_model <- glm(hbaic_cat_binary ~ employment_status, data = df, family = binomial)
-
-# Place of permanent residence
-permanent_model <- glm(hbaic_cat_binary ~ place_of_permanent_residence, data = df, family = binomial)
-
-# Monthly income
-income_model <- glm(hbaic_cat_binary ~ monthly_income, data = df, family = binomial)
-
-# Waist circumference
-waist_model <- glm(hbaic_cat_binary ~ waist_circumference, data = df, family = binomial)
-
-# Hip circumference
-hip_model <- glm(hbaic_cat_binary ~ hip_circumference , data = df, family = binomial)
-
-# Systolic blood pressure
-sbp_model <- glm(hbaic_cat_binary ~ sbp, data = df, family = binomial)
-
-# Diastolic blood pressure
-dbp_model <- glm(hbaic_cat_binary ~ dbp, data = df, family = binomial)
-
-# Duration of diabetes
-duration_model <- glm(hbaic_cat_binary ~ duration_diabetes, data = df, family = binomial)
-
-# Treatment of diabetes
-treatment_model <- glm(hbaic_cat_binary ~ treatment_diabetes, data = df, family = binomial)
-
-# BMI category
-bmi_model <- glm(hbaic_cat_binary ~ bmi_cat, data = df, family = binomial)
-
-# Blood pressure category
-bpcat_model <- glm(hbaic_cat_binary ~ bp_cat, data = df, family = binomial) 
+# Fit one model per predictor, store in a named list
+models <- lapply(predictors, function(var) {
+  glm(reformulate(var, response = "hbaic_cat_binary"), data = df, family = binomial)
+})
+names(models) <- predictors
 ```
 
 ```{r univariate-table-hbaic}
