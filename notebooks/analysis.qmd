@@ -254,9 +254,8 @@ df |>
 ## Correlation between numeric variables
 
 ```{r corr-numeric}
-df |>
-  select_if(is.numeric) |>
-  ggcorr(label = TRUE)
+numeric_vars |>
+  ggcorr(label=T)
 ```
 
 
