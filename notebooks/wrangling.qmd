@@ -22,6 +22,29 @@ df <- import(here("data", "data.sav"))
 head(df)
 ```
 
+```{r}
+# Remove transformed fields imported from spss
+df <- df |>
+  select(
+    -c(
+      Control,
+      BMI,
+      BMICAT,
+      WHR,
+      WHRCAT,
+      MeanSBP,
+      MeanDBP,
+      BP_Control,
+      FFTS,
+      FFCAT,
+      DepressionTS,
+      DepressionCAT,
+      BPControl1,
+      `filter_$`
+    )
+  )
+```
+
 ```{r mutate-depression-functionality}
 df <- df |>
   mutate(
@@ -56,6 +79,9 @@ df <- df |>
 
 ```{r characterise-labels}
 df <- characterize(df)
+```
+
+```{r factorise-variables}
 df <- factorize(df, coerce_character = TRUE)
 head(df)
 ```
@@ -82,7 +108,7 @@ skim(df)
 ```{r mutate-variables}
 df <- df |>
   mutate(
-    bmi = body_weight / (height)**2 |>
+    bmi = body_weight / (height**2) |>
       ff_label("Body mass index (kg/m^2"),
     whr = waist_circumference / hip_circumference |>
       ff_label("Waist-to-hip ratio"),
