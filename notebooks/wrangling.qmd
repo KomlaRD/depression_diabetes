@@ -54,7 +54,6 @@ df <- df |>
   )
 ```
 
-
 ```{r characterise-labels}
 df <- characterize(df)
 df <- factorize(df, coerce_character = TRUE)
@@ -64,6 +63,7 @@ head(df)
 ```{r glimpse-data}
 glimpse(df)
 ```
+
 ```{r}
 # Remove functionality and depression variables
 df <- df |>
@@ -78,6 +78,7 @@ df <- df |>
 ```{r skim-data}
 skim(df)
 ```
+
 ```{r mutate-variables}
 df <- df |>
   mutate(
@@ -126,8 +127,6 @@ df <- df |>
   )
 ```
 
-
-
 ```{r waist-hip-ratio}
 male_cut_off <- 0.9
 female_cut_off <- 0.85
@@ -142,8 +141,6 @@ mutate(
   ff_label("WHR categories")
 )
 ```
-
-
 
 ```{r bmi-category}
 df <- df |>
@@ -183,13 +180,11 @@ df <- df |>
   )
 ```
 
-
 ```{r mutate-age}
 # Replace the patient's age from 80 to 81
 df <- df |>
   mutate(age = ifelse(id == "DM/083", 80, age))
 ```
-
 
 ```{r create-subsets}
 # Demographics
@@ -271,7 +266,6 @@ depress <-
 create_report(df, report_title = "Depression study")
 ```
 
-
 ```{r export-clean-data}
 # Main dataset
 export(df, here("data", "clean_data.RData"))
@@ -289,4 +283,3 @@ export(fam_func, here("data", "family.RData"))
 # Depression
 export(depress, here("data", "depression.RData"))
 ```
-
