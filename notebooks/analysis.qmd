@@ -172,22 +172,6 @@ health |>
 ```
 
 
-
-
-
-## Family functionality
-
-```{r describe-family-functionality}
-# Family functionality
-fam_func |>
-  select(-c(sex)) |>
-  tbl_summary() |>
-  bold_labels() |>
-  add_ci()
-```
-
-
-
 ## Demographics stratified by HBA1C
 
 
