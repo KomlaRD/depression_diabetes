@@ -209,13 +209,7 @@ health |>
 df <- df |>
   mutate(
     hbaic_cat_binary = 
-      ifelse(hbaic_cat == "Good control", 0, 1),
-    fam_func_binary = 
-      ifelse(functionality_cat == "Highly functional", 0, 1),
-    depression_binary =
-      ifelse(
-        depression_cat == "Normal", 0, 1
-      )
+      ifelse(hbaic_cat == "Good control", 0, 1)
   )
 ```
 
