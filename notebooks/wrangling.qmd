@@ -201,7 +201,7 @@ df <- df |>
   mutate(
     bp_cat = 
       case_when(
-        sbp <= 140 & dbp <= 80 ~ "Good BP control",
+        sbp <= 130 & dbp <= 80 ~ "Good BP control",
         .default = "Poor BP control"
       ) |>
       ff_label("Blood pressure categories")
