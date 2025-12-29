@@ -112,6 +112,8 @@ df <- df |>
       ff_label("Body mass index (kg/m^2"),
     whr = waist_circumference / hip_circumference |>
       ff_label("Waist-to-hip ratio"),
+    whtr = waist_circumference / (height * 100) |>
+      ff_label("Waist-to-height ratio"),
     sbp = (bp_sbp1 + bp_sbp2 + bp_sbp3) / 3 |>
       ff_label("Systolic blood pressure (mmHg)"),
     dbp = (bp_dbp1 + bp_dbp2 + bp_dbp3) / 3 |>
