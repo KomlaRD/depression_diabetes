@@ -172,17 +172,6 @@ health |>
 ```
 
 
-## Depression 
-
-```{r}
-# Depression data
-depress |>
-  select(-c(sex)) |>
-  tbl_summary(
-  ) |>
-  add_ci() |>
-  bold_labels()
-```
 
 
 
