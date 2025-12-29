@@ -191,6 +191,7 @@ demographics |>
 ```{r health-hbaic}
 # Health characteristics by HBA1C outcome
 health |>
+  select(-c(id, sex, hba1c_value, duration_diabetes)) |>
   tbl_summary(by = hbaic_cat) |>
   add_p() |>
   bold_p() |>
