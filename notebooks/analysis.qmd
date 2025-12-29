@@ -88,15 +88,13 @@ colnames(categorical_vars)
 ```{r descriptives}
 # Demographics
 demographics |>
+  select(c(-id, depression_cat, hbaic_cat)) |>
   tbl_summary(
     missing_text = "Missing",
     sort = list(c(marital_status, religious_background,
                   employment_status, mar_stat_two, mar_stat_three) ~ "frequency")
 )|>
-  bold_labels() |>
-  add_ci(include=c(
-     "hbaic_cat", "functionality_cat", "depression_cat"
-  ))
+  bold_labels()
 ```
 
 ## Health characteristics
