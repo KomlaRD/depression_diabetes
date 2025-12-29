@@ -216,8 +216,6 @@ df <- df |>
 
 ```{r multi-co}
 dependent_hb <- "hbaic_cat_binary"
-dependent_ff <- "fam_func_binary"
-dependent_dep <- "depression_binary"
 
 explanatory <- c(
 "sex",                        
@@ -228,14 +226,17 @@ explanatory <- c(
 "employment_status",           
 "place_of_permanent_residence",
 "monthly_income",              
-"body_weight",                 
-"height",                      
+"bmi",                     
 "waist_circumference",         
 "hip_circumference",   
 "sbp",
 "dbp",
-"duration_diabetes",
-"treatment_diabetes" 
+"duration_diabetes_cat",
+"treatment_diabetes" ,
+"functionality_cat",
+"depression_cat",
+"whr",
+"whtr"
 )
 ```
 
@@ -246,32 +247,6 @@ explanatory <- c(
 df |>
   glmmulti(
     dependent_hb, explanatory
-  ) |> car::vif()
-```
-
-
-
-## Multicollinearity: Family functionality
-
-```{r vif-ff}
-# Variance inflation factor for family functionality outcome
-df |>
-  glmmulti(
-    dependent_ff, explanatory
-  ) |> car::vif()
-```
-
-
-
-
-## Multicollinearity: Depression
-
-
-```{r vif-dep}
-# Variance inflation factor for depression outcome
-df |>
-  glmmulti(
-    dependent_dep, explanatory
   ) |> car::vif()
 ```
 
