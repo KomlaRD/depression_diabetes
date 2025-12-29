@@ -251,6 +251,7 @@ df$id <- as.character(df$id)
 demographics <- 
   df |>
   select(
+    id,
     sex,
     age,
     age_group,
@@ -272,6 +273,7 @@ demographics <-
 health <- 
   df |>
   select(
+    id,
     sex,
     hba1c_value,
     body_weight,
@@ -283,6 +285,8 @@ health <-
     sbp,
     dbp,
     bp_cat,
+    whr,
+    whtr,
     whr_cat,
     duration_diabetes,
     treatment_diabetes,
@@ -295,12 +299,8 @@ health <-
 fam_func <- 
   df |>
   select(
+    id,
     sex,
-    ff1,
-    ff2,
-    ff3,
-    ff4,
-    ff5,
     functionality_cat
   )
 
@@ -308,16 +308,8 @@ fam_func <-
 depress <- 
   df |>
   select(
+    id,
     sex,
-    phq1,
-    phq2,
-    phq3,
-    phq4,
-    phq5,
-    phq6,
-    phq7,
-    phq8,
-    phq9,
     depression_cat
   )
 ```
