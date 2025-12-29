@@ -117,16 +117,57 @@ demographics |>
 
 ## Health characteristics
 
+```{r mutate-health-variables}
+health <- 
+  health |>
+  mutate(
+    hba1c_value = hba1c_value |>
+      ff_label("Glycated hemoglobin (HBA1C) (%)"),
+    body_weight = body_weight |>
+      ff_label("Body weight (kg)"),
+    height = height |>
+      ff_label("Height (m)"),
+    bmi = bmi |>
+      ff_label("Body mass index (BMI) (kg/m^2)"),
+    waist_circumference = waist_circumference |>
+      ff_label("Waist circumference (cm)"),
+    hip_circumference = hip_circumference |>
+      ff_label("Hip circumference (cm)"),
+    sbp = sbp |>
+      ff_label("Systolic blood pressure (mmHg)"),
+    dbp = dbp |>
+      ff_label("Diastolic blood pressure (mmHg)"),
+    whr = whr |>
+      ff_label("Waist-to-hip ratio (WHR)"),
+    whtr = whtr |>
+      ff_label("Waist-to-height ratio"),
+    duration_diabetes_cat = duration_diabetes_cat |>
+      fct_relevel(
+        "Below 1 year",
+        "1 year to below 5 years",
+        "5 years to below 10 years",
+        "10 years and above"
+      ) |>
+        ff_label("Duration of diabetes"),
+      treatment_diabetes = treatment_diabetes |> 
+        fct_recode(
+          "Insulin" = "insulin"
+        ) |>
+          ff_label("Medical treatment of diabetes"),
+      functionality_cat = functionality_cat |>
+        ff_label("Family functionality")
+  )
+```
 ```{r health}
 # Health data
 health |>
-  select(-c(sex)) |>
+  select(-c(id, sex, duration_diabetes)) |>
   tbl_summary(
     missing_text = "Missing",
     sort = list(c(treatment_diabetes) ~ "frequency"
   ) )|>
     bold_labels() |>
-    add_ci(include=c("bmi_cat", "bp_cat", "whr_cat", "treatment_diabetes"))
+    add_ci(include=c("hbaic_cat", "functionality_cat", "depression_cat"))
   
 ```
 
