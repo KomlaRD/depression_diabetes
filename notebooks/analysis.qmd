@@ -21,7 +21,8 @@ pacman::p_load(
   broom, # Tidy output
   car, # Variance inflation factor
   rstatix, # Pipe friendly statistical test
-  GGally # Correlation matrix
+  GGally, # Correlation matrix
+  DescTools # Model fit
 )
 ```
 
@@ -265,7 +266,7 @@ numeric_vars |>
 ```{r hbaic-univariate}
 # Vector of predictor variable names
 predictors <- c(
-  "sex", "age", "education", "marital_status", "religious_background",  "employment_status", "place_of_permanent_residence",
+  "sex", "age", "education", "marital_status", "religion_two",  "employment_status", "place_of_permanent_residence",
   "monthly_income", "sbp", "dbp", "duration_diabetes_cat", "treatment_diabetes", "bmi_cat", "bp_cat", "functionality_cat", "depression_cat"
 )
 
@@ -308,3 +309,14 @@ full_th <- full_model |>
 full_th
 ```
 
+# Model fit
+
+```{r model-fit}
+# McFadden R2
+PseudoR2(full_model, which = c("McFadden", "CoxSnell", "Nagelkerke"))
+# Cstats
+Cstat(full_model)
+
+# Hosmer-Lemeshow test
+HosmerLemeshowTest(fitted(full_model), full_model$y)
+```
